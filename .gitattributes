@@ -1,0 +1,57 @@
+# This git configuration file transforms file encoding between git's native ascii(utf-8) to and from zOS's native EBCDIC (IBM1047).
+# Generic rules like "**" apply to all files. But can be overridden by specific rules like "**.md".
+## For more info see doc section below
+### 
+
+# Default rules for all app source files  - converts git utf-8 to zOS ebcdic ibm-1047 and tags files on zOS as ibm-1047 
+    **   git-encoding=utf-8   zos-working-tree-encoding=ibm-1047 
+    **/asampl*.* binary 
+    
+
+# Note: uDBB recommends uses zOS rule utf8.  I use iso8859 to allow me to 'cat' a dbb yaml file on Z. 
+    
+    dbb-app.yaml    git-encoding=utf-8  zos-working-tree-encoding=iso8859-1     
+    .gitattributes  git-encoding=utf-8  zos-working-tree-encoding=iso8859-1
+    * text=auto     eol=lf
+
+    # DBB v3 zBuilder   
+    conf/**/*.yaml  git-encoding=utf-8  zos-working-tree-encoding=iso8859-1 
+    conf/**/*.conf  git-encoding=utf-8  zos-working-tree-encoding=iso8859-1
+
+    # Admin: Wazi-Deploy  
+    conf/deploy/*.yaml git-encoding=utf-8 zos-working-tree-encoding=iso8859-1
+
+# Misc: Code as needed 
+    **.md              git-encoding=utf-8 zos-working-tree-encoding=utf-8
+
+    **.png binary
+    **.pdf binary
+    **.jar* binary
+    **.docx binary
+    **.pptx binary
+
+
+# Example TAZ EDT files tagging. all other exts (json, bzucfg, ztest) stay utf8 (for now - TBD)
+    **.rec binary
+    **.zdata binary
+    **/*.rec* git-encoding=utf-8  zos-working-tree-encoding=utf-8
+
+
+#*** 
+# Notes Section  WIP
+
+# On USS, encoding information is represented by a file's tag. Use the cmd "ls -lasT" to show the "T" Tag.
+# IBM Open Editor Encoding flow: 
+#   Open Editor uses zowe rest apis to upload files to USS.
+#   After the upload, ICONV is used to convert a file from ascii to ebcdic. 
+#   The default '-f' arg of ICONV is utf-8 or  --- Peter researching this ...
+#     .. uses the --local-enconding (my PC is 437 via chcp cmd) Yet to be determined (Peter H is researching) 
+#   It also uses the .gitattributes rules in the the ICONV '-t' value.
+#   After ICONV, it then executes a USS chtag using the .gitattributes rule or the default IBM1047 when no rule is provided.
+
+
+# Notes on using UTF-8 
+# As per the DBB Document all yamls files should be encoded and tagged as utf-8. 
+# However, for diagnostics purposes, when using 'cat' on USS to view a yaml file, the text is unreadable.
+# In this case us less or more which follows the autocvt env var rule for tagged files - unlike cat.
+# Or set  the tag to iso8859-1 - which is what I used for my config but "MAY MOT BE OFFICIALLY SUPPORTED "  

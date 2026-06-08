@@ -1,0 +1,6 @@
+# An example configuration file to override the default DBB build options for the asample.cbl pgm 
+config:
+  - name: compileParms
+    value: COPYRIGHT('IBM zDevOps example pgm level override')
+  
+    

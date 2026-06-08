@@ -1,0 +1,116 @@
+---
+apiVersion: deploy.ibm.com/v1
+kind: DeploymentMethod
+metadata:
+  name: "CICS-DB2-BATCH-v17-NJL"
+  version: "1.0.0"
+  
+  annotations:
+    deployVersion: "1.0.0"
+
+activities:
+
+  # ---------------------------------------------------------
+  # Expand a package activity 
+  # ---------------------------------------------------------
+  - name: PACKAGE
+    description: Expand the deployment package in USS
+
+    tags:
+      - always
+
+    actions:
+      - name: PACKAGE
+        steps:
+          - name: PACKAGE
+
+  # ---------------------------------------------------------
+  # Deploy modules activity (copy to PDS)
+  # ---------------------------------------------------------
+  - name: DEPLOY_MODULES
+    description: Copy artifacts as members into a PDS dataset
+
+    actions:
+      - name: UPDATE
+        states:
+          - UNDEFINED
+        steps:
+          - name: MEMBER_COPY
+
+    types:
+      - name: DBRM      
+      - name: LOAD
+      - name: CICSLOAD
+      - name: MAPLOAD
+      - name: JCL
+
+    is_artifact: true
+
+  # ---------------------------------------------------------
+  # DB2 bind package activity 
+  # ---------------------------------------------------------
+  - name: DB2
+    description: Bind DB2 packages for DBRM artifacts
+
+    actions:
+      - name: UPDATE
+        states:
+          - UNDEFINED
+        steps:
+          - name: DB2_BIND_PACKAGE
+            properties:
+              - key: template
+                value: db2_bind_package
+
+    types:
+      - name: DBRM
+
+    is_artifact: true
+
+  # ---------------------------------------------------------
+  # CICS NEWCOPY
+  # ---------------------------------------------------------
+  - name: CICS
+    description: Perform CICS NEWCOPY using CMCI
+
+    actions:
+      - name: UPDATE
+        states:
+          - UNDEFINED
+        steps:
+          - name: PROG_UPDATE
+            properties:
+              - key: template
+                value: cics_cmci_prog_update
+
+    types:
+      - name: CICSLOAD
+      - name: MAPLOAD
+
+    is_artifact: true
+  
+  # ---------------------------------------------------------
+  # Operator Command activity - demo only. not artifact based 
+  # Passed: See Evidence file for sysout of sample opercmd
+  # ---------------------------------------------------------
+  - name: ZOS_OPER_CMD 
+    description: A sample action to run an operator cmd - demo only 
+
+    actions:
+      - name: RUN A ZOS COMMAND NOT RELATED TO ARTIFACTS
+        short_name: ZOS_COMMAND 
+
+        steps:  
+        - name: TEST STEP FOR SYSTEM_COMMAND DISPLAY SYMBOLS
+          short_name: SYSTEM_COMMAND_TEST 
+          properties:
+          - key: template
+            value: system_command
+
+          # This key is the name of a step in the env file  
+          - key: var_system_command
+            value: ocmd 
+
+    is_artifact: False
+
+  
