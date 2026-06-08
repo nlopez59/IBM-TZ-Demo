@@ -1,32 +1,51 @@
-**internal notes** 
-This repo and readme are meant tof external users 
-Once a TZ sandbox is created, point them to the GA version of this repo for hands-on learning. 
+# IBM zDevOps Demo – MVP Environment
 
-But first: 
-- run the adduser sh script on USS to create a new RACF ID/password for the user
-    - I copied it from the June TZ bersion in ibmuser.  Check for update in newer TZ images 
-- run a full upload bulld to seed and pre-test 
-- run JCL and access MVS via Zowe
+This repository provides a simple environment for learning how to edit, build, and test z/OS COBOL applications using the IBM zDevOps toolchain.
 
+**Author:** Nelson Lopez, IBM zDevOps Architect (June 2026) 
 
+## Prerequisites
 
-## IBM zDevOps demo
+This demo environment assumes the following components are installed and configured:
 
-This is a basic repo to learn how to edit, build and test zOS Mainframe cobol apps under IBM's zDevops framework.
-Author: Nelson Lopez (IBM zDevOps Arch) 
+* Visual Studio Code with Git
+* IBM IDzEE Extension Pack and prerequisites (including Java 21)
+* Access to GitHub to clone this repository
 
-This repo support the zDevOps stack configured with:
-- VS Code with Git - Developer Desktop
-- IBM IDZee Extension Pack and their prerequisites like Java 21 - See VS Code Market place 
-- Ability to clone from GitHub - this repo to start 
-- Access to a mainframe - add it IP in the zowe.config.json host variable 
+## Supported Features (MVP)
 
-Support Features - MVP model:
-- use Git to create a personal branch.  Dont change this branch please 
-- use IBM Open Editor to edit the 'source/asample.cbl' 
-- right click on the code to run an "IBM user build" with DBB on MVS
-- Submit JCL to test your changes in batch 
-- Use Zowe explorer to access your mainframe datasets and jobs
+This repository demonstrates the core zDevOps developer workflow:
 
+* Clone this repository  
+* Open the project folder 
+* Create a personal branch
+* Edit `source/asample.cbl` using IBM Open Editor
+* Submit an "IBM user build"  to compile and bind the code using IBM Dependency Based Build (DBB)
+* View build output logs in `logs` 
+* Submit the test job `/jcl/asample.jcl`
+* View JES job output from Zowe Explorer
+* Commit and Sync(Push) your personal branch back to Git. 
 
-Reach out to you IBM DevOp contact for mor details 
+## Optional Add-ons
+
+This environment can be extended with additional DevOps capabilities:
+
+* CI/CD integration with GitHub Actions, Azure DevOps, GitLab, and others
+* Sample deployment scripts (customization required)
+* IBM Open Debug configured in VS Code and z/OS (currently untested)
+* IBM Test Accelerator for Z (TAZ) unit testing support planned for Q4 2026
+
+For additional information, contact your IBM DevOps representative.
+
+---
+
+## Internal IBM Setup Notes
+
+1. Provision a TZ image.
+1. Run the `adduser` USS script to create a RACF user ID and password.
+1. Update `host` in `zowe.config.json` with the TZ IP.
+3. Run an initial full-upload build to seed and validate the z/OS sandbox.
+4. Verify that the user can:
+   * Submit JCL
+   * Access datasets and jobs through Zowe
+   * Successfully perform a user build from VS Code
