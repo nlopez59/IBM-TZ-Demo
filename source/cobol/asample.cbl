@@ -1,5 +1,4 @@
-000100 ID DIVISION.     
-                 
+       ID DIVISION. 
        PROGRAM-ID. ASAMPLE.
        ENVIRONMENT DIVISION.                              
        DATA DIVISION.                                     

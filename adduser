@@ -1,0 +1,55 @@
+#  Ansible insert start #
+
+#!/bin/sh
+strtest=$1
+passwd=$2
+if [[ -z "$passwd" ]]; then
+   passwd='G87!V65Z_h64FbnQ45CX9845abqewr4748DJbnaklLDKFJ234'
+fi
+lenstr="${#strtest}"
+if [ "$lenstr" -ge 8 ]; then
+    echo "TSO ID must be 7 characters or less"
+    echo "ID entered is length: "$lenstr
+    exit
+fi
+lenstr="${#passwd}"
+if [ "$lenstr" -lt 8 ]; then
+    echo "TSO password must be exactly 8 characters long"
+    echo "Password length as entered is length: "$lenstr
+    exit
+fi
+tsocmd 'adduser '$1' name('$1') dfltgrp(sys1) special operations'
+if [ "$lenstr" -gt 8 ]; then
+    tsocmd "alu "$1" phrase('"$passwd"') noexpire"
+    tsocmd 'alu '$1' nopassword'
+else
+    tsocmd 'alu '$1' password('$passwd') noexpire'
+fi
+tsocmd "define alias(name('"$1"') relate('catalog.vs01.tso'))"
+tsocmd 'pe db13proc class(tsoproc) id('$1') access(read)'
+tsocmd 'pe proc001 class(tsoproc) id('$1') access(read)'
+tsocmd 'setropts raclist(tsoproc) refresh'
+tsocmd 'pe acct class(tsoauth) id('$1') access(read)'
+tsocmd 'pe console class(tsoauth) id('$1') access(read)'
+tsocmd 'pe jcl class(tsoauth) id('$1') access(read)'
+tsocmd 'pe oper class(tsoauth) id('$1') access(read)'
+tsocmd 'setropts raclist(tsoauth) refresh'
+tsocmd 'setropts raclist(tsoauth) refresh'
+tsocmd 'alu '$1' tso(acctnum(acct001) proc(db13proc)'
+tsocmd 'pe acct001 class(acctnum) id('$1') access(read)'
+tsocmd 'setropts raclist(acctnum) refresh'
+tsocmd 'pe isf.connect.* class(sdsf) id('$1') access(read)'
+tsocmd 'setropts raclist(sdsf) refresh'
+tsocmd 'pe cicsts62 class(appl) id('$1') access(read)'
+tsocmd 'setropts raclist(appl) refresh'
+tsocmd 'connect '$1' group(izuadmin)'
+tsocmd 'alu '$1' omvs(autouid)'
+tsocmd "alu "$1" omvs(home('/u/"$1"'))"
+tsocmd "alu "$1" omvs(program('/bin/sh'))"
+mkdir /u/$1/.ssh                        
+chown $1:SYS1 /u/$1/                    
+chown $1:SYS1 /u/$1/.ssh                
+touch /u/$1/.ssh/authorized_keys        
+chown $1:SYS1 /u/$1/.ssh/authorized_keys
+#  Ansible insert end #
+

@@ -1,12 +1,9 @@
 {
-    "$schema": "./zowe.schema.json",
-  
+    "$schema": "./zowe.schema.json", 
     "profiles": {
          
-        
         "rse": {
             "type": "rse",
-            "COMMENT0": "For zOSMF, change the above type and profile name to zosmf. And add an ssh profile and conf local keys.",
             "properties": {
                 "port": 8195                
             }
@@ -14,12 +11,10 @@
         "zOpenDebug": {
             "type": "zOpenDebug",
             "properties": {
-                "COMMENT2": "DPS (Profile service) port connect to the EQAPROF STC for debug and TAZ/EDT",
                 "dpsPort": 8192,
                 "dpsContextRoot": "api/v1",
                 "dpsSecured": false,
                 
-                "COMMENT3": "RDS (Remote Client service) port connect to the EQARMTD STC. See eqahcc.env for CC port accessed by RDS ",                
                 "rdsPort": 8193,
                 "rdsSecured": false,
                 "authenticationType": "basic",
@@ -33,7 +28,7 @@
                 "protocol": "https",
                 "rejectUnauthorized": false,
                 "basePath": "rseapi",
-                "COMMENT4": "Using TZ-Preview PubIP",       
+                "COMMENT4": "Add your zOS IP",       
                 "host": "52.118.188.193"
             },
             "secure": [
