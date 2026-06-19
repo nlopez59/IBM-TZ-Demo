@@ -13,22 +13,14 @@ propertyGroups:
         type: local
         locations:
           - "**/copybook"
-      
-      - name: syslib
-        type: mvs
-        locations:
-          - "IBMUSER.VSCODE.COPY"          
-   
+       
 profiles:
   
   - name: "dbb-userbuild"
     type: "dbb"
     settings:
       # On the first build, run "IBM user build full upload' to refresh the build conf files on zOS  
-      command: "mkdir ~/zdevops; 
-              cp -r conf ~/zdevops/;          
-              export DBB_BUILD=~/zdevops/conf/build; 
-              dbb  -DBB_DAEMON_PORT 8180  build "   
+      command: "dbb  build "   
       
       lifecycle: user      
       lifecycleArgs:
@@ -38,8 +30,7 @@ profiles:
       additionalDependencies:
         - "dbb-app.yaml"
         - "source/.dbb_processor/*"
-        - "conf/*"
-        
+                
 
       logFilePatterns:
         - "**/logs/*.log"
