@@ -1,16 +1,15 @@
 {
     
    
-    "COMMENT": "Example Open Editor & DBB settings. update HLQ and USS dir to user's settings",
+    "COMMENT": "CHANGE guest1 to your assigned ID",
     "zopeneditor.userbuild.userSettings": {
-      "dbbWorkspace": "<yourHOME>/vscode",
-      "dbbLogDir": "<yourHome>/vscode",
-      "dbbHlq": "<yourHLQ>.VSCODE",
+      "dbbWorkspace": "/u/guest1/vscode",
+      "dbbLogDir": "/u/guest1/vscode",
+      "dbbHlq": "GUEST1.VSCODE",
       "dbbDefaultZappProfile": "dbb-userbuild"       
     },
     
     "zopeneditor.zowe": {
-        "defaultCliProfile": "zosmf",
-        "defaultSshCliProfile": "ssh"         
+        "defaultCliProfile": "zos"
     }    
 }
