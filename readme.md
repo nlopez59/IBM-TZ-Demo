@@ -1,4 +1,4 @@
-# IBM zDevOps Demo – MVP IBM TechZone Environment
+# IBM zDevOps Demo – MVP IBM TechZone Environment (v2)
 
 This repository provides a simple environment for learning how to edit, build, and test z/OS COBOL applications using the IBM zDevOps toolchain.
 
