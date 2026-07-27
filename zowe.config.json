@@ -1,49 +1,14 @@
 {
-    "$schema": "./zowe.schema.json", 
+    "$schema": "./zowe.schema.json",
     "profiles": {
-
-        "ssh": {
-            "type": "ssh",
+        "zos": {
+            "type": "rse",            
             "properties": {
-                "port": 22
-            }
-        },
-        
-        "zosmf": {
-            "type": "zosmf",
-            "properties": {                
-                "port": "<PORT>",
+                "port": 8195,
                 "protocol": "https",
-                "rejectUnauthorized": false
-            },
-            "secure": [
-                "user",
-                "password"
-            ]          
-        },
-
-        "zOpenDebug": {
-            "type": "zOpenDebug",
-            "properties": {
-                "dpsPort": 8192,
-                "dpsContextRoot": "api/v1",
-                "dpsSecured": false,
-                
-                "rdsPort": 8193,
-                "rdsSecured": false,
-                "authenticationType": "basic",
-                "uuid": "1959edc3-5bcf-4912-8569-0a115f0a2f38",
-
-            }
-        },
-        "project_base": {
-            "type": "base",
-            "properties": {
-                "rejectUnauthorized": false,                
-                "COMMENT4": "Add your zOS IP",       
-
-                "host": "<your_ZOS_DNS/IP>"
-
+                "rejectUnauthorized": false,            
+                "basePath": "rseapi",
+                "host": "52.116.128.85"                
             },
             "secure": [
                 "user",
@@ -51,10 +16,9 @@
             ]
         }
     },
-    "autoStore": true,
-    "defaults": {
-        "base": "project_base",
-        "zosmf": "zosmf",
-        "zOpenDebug": "zOpenDebug"
+    
+    "autoStore": true, 
+    "defaults": {    
+        "rse": "zos"        
     }
 }

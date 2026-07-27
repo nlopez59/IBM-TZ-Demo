@@ -1,0 +1,23 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+
+      {
+        "label": "Build Custom Task: Copy and Tag DBB zBuilder config files to USS User Build Host TZ ibmuser home",
+        "type": "shell",
+        "command": "cmd",
+        "args": [
+            "/c",
+            "ssh tz \"mkdir -p /u/ibmuser/zdevops/conf/build\" && scp \"${workspaceFolder}\\conf\\build\\*.yaml\" tz:/u/ibmuser/zdevops/conf/build/ && ssh tz \"chtag -R -tc ISO8859-1 zdevops/conf/build\""
+        ],
+        "group": {
+            "kind": "build",
+            "isDefault": false
+        },
+        "problemMatcher": []
+    }
+
+
+    ]
+  }
+  

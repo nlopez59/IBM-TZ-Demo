@@ -20,7 +20,7 @@ profiles:
     type: "dbb"
     settings:
       # On the first build, run "IBM user build full upload' to refresh the build conf files on zOS  
-      command: "dbb  build "   
+      command: "dbb -DBB_DAEMON_PORT 8180 build  "
       
       lifecycle: user      
       lifecycleArgs:
@@ -29,8 +29,7 @@ profiles:
       # The files to upload to USS when IBM user build full upload' is selected 
       additionalDependencies:
         - "dbb-app.yaml"
-        - "source/.dbb_processor/*"
-                
+              
 
       logFilePatterns:
         - "**/logs/*.log"
