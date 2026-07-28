@@ -1,7 +1,7 @@
 {
     
    
-    "COMMENT": "CHANGE guest1 to your assigned ID",
+    "COMMENT": "CHANGE guest1 to your assigned RACF acct",
     "zopeneditor.userbuild.userSettings": {
       "dbbWorkspace": "/u/guest1/vscode",
       "dbbLogDir": "/u/guest1/vscode",

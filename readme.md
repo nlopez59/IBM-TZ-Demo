@@ -1,19 +1,22 @@
 # IBM zDevOps Demo – MVP IBM TechZone Environment (v2)
 
-This repository provides a simple environment for learning how to edit, build, and test z/OS COBOL applications using the IBM zDevOps toolchain.
+This repository provides a simple environment for learning how to edit, build, and test z/OS COBOL applications using the IBM zDevOps toolchain within IBM's TechZone environment.
 
-**Author:** Nelson Lopez, IBM zDevOps Architect (June 2026) 
 
-## Predefined zOS Users and passwords 
- Each member of you team can use one of this RACF accts.  
 
- guest1   motions01
- guest2   motions02
- guest3   motions03
- guest4   motions04
- guest5   motions05
+## Predefined z/OS Users and Passwords
 
-## Prerequisites
+Each member of your team can use one of the following RACF accounts.
+
+| RACF User | Password |
+|------------|----------|
+| `guest1` | `motion01` |
+| `guest2` | `motion02` |
+| `guest3` | `motion03` |
+| `guest4` | `motion04` |
+| `guest5` | `motion05` |
+
+## User Prerequisites
 
 This demo environment assumes the following desktop components are installed and configured:
 
@@ -33,27 +36,37 @@ This demo environment assumes the following desktop components are installed and
 This repository support build simple Cobol programs.
 
 Follow these steps:
-* Clone this repository in VS Code: https://github.com/nlopez59/IBM-TZ-Demo.git
+* Using the HTTPS URL format, clone this repository in VS Code: https://github.com/nlopez59/IBM-TZ-Demo.git
 * Create a personal branch.
 * Change the RACF account in [settings.json](.vscode/settings.json#L6)
-* In VS Code Zowe Explorer, provide your RACF account as you navigate to your USS home directory.
-* Edit `source/asample.cbl` using the IBM Open Editor.
-* Submit an **IBM User Build** to compile your changes using IBM Dependency Based Build (DBB).
+* In VS Code Zowe Explorer, enter your RACF account as you navigate to your USS home directory `/u/guestx`.
+* Edit [source/asample.cbl](source/cobol/asample.cbl) using the IBM Open Editor.
+* Run an **IBM User Build** to compile your program using IBM Dependency Based Build (DBB).
 * View the build output logs in this project's `logs` folder.
-* Submit the test job [`source/jcl/asample.jcl`](source/jcl/asample.jcl#L7).
+* Submit the sample test job [`source/jcl/asample.jcl`](source/jcl/asample.jcl#L7).
 * View the JES job output from Zowe Explorer.
 
 See the demo: https://youtu.be/sbLJC4uZ3YE
 
 For additional information, contact your IBM DevOps representative.
+
 ---
 
-## For IBM Internal users 
-1. Provision a TZ image.
-1. SSH into the instance  (password provided by admin):
+
+
+#### For IBM Internal Use Only (Work with your LabConnect Lead)
+1. Provision a TechZone (TZ) image for your customer. 
+
+1. SSH into the new instance 
    `ssh ibmuser@TZ-IP?  -p 2023 `
-1. Run the `adduser` USS script to create RACF accts and passwords.
-1. Update `host` in this projects [`zowe.config.json`](zowe.config.json#L11) with the TZ IP.
-1. Add this file to each user's home directory [.profile](conf/.profile) 
-1. Press cntl/shift/b to seed the DBB zBuilder configuration files. 
-3. Run an initial DBB "full-upload" build to test the configuration.
+   1. Run `adduser` in USS to create new RACF accts and passwords as listed above.
+   1. Append [.profile](conf/.profile) to /etc/profile
+
+1. From VS Code: 
+   1. Clone this repo's main branch (see above).   
+   1. Update `host` in this projects [`zowe.config.json`](zowe.config.json#L11) with the TZ IP.   
+   1. Press `cntl/shift/b` to seed the DBB zBuilder configuration files. 
+   1. Run "IBM User Build with full upload" on a sample cobol program to initialize and test the configuration.
+   1. Push your changes back to Github
+
+**Author:** Nelson Lopez, IBM zDevOps LabConnect FDE (June 2026) 
