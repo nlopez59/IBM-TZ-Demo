@@ -1,6 +1,6 @@
 # IBM zDevOps Demo – MVP IBM TechZone Environment (v2)
 
-This repository provides a simple environment for learning how to edit, build, and test z/OS COBOL applications using the IBM zDevOps toolchain within IBM's TechZone environment.
+This repository provides a basic z/OS environment for learning how to edit, build, and test COBOL applications using the IBM zDevOps toolchain within IBM's TechZone environment.
 
 
 
@@ -33,9 +33,7 @@ This demo environment assumes the following desktop components are installed and
 
 ## Supported Features (MVP)
 
-This repository support build simple Cobol programs.
-
-Follow these steps:
+Follow these steps to configure, build and test a sample Cobol program:
 * Using the HTTPS URL format, clone this repository in VS Code: https://github.com/nlopez59/IBM-TZ-Demo.git
 * Create a personal branch.
 * Change the RACF account in [settings.json](.vscode/settings.json#L6)
